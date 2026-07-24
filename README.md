@@ -20,8 +20,6 @@ Comprehensive React application implementing **Practical 1**, **Practical 2**, a
 - Conditionally rendered UI with `<Spinner />` and `<ErrorMessage />` featuring a retry button.
 - Real-time search/filter input and star count display.
 
-## AI Agent Context
-Detailed AI agent context, architecture guidelines, and state flow diagrams are stored in [`AGENT.md`](./AGENT.md).
 
 ## Getting Started
 
