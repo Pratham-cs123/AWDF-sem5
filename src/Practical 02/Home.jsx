@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from '../components/Header';
-import About from '../components/About';
-import Courses from '../components/Courses';
-import Announcements from '../components/Announcements';
+import Header from '../Practical 01/Header';
+import About from '../Practical 01/About';
+import Courses from '../Practical 01/Courses';
+import Announcements from './Announcements';
 
 // Practical 1: Composes Header, About (stats), Courses, and Announcements
 // without code duplication — data passed via props to child components

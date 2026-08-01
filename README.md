@@ -8,14 +8,15 @@ Comprehensive React application implementing **Practical 1**, **Practical 2**, a
 - Reusable components: `Header.jsx`, `About.jsx`, `Skills.jsx`, `Footer.jsx`.
 - Clean props data flow (`name`, `themeColor`, `skillList`).
 
-**Key files:**
+**Key files:** (`src/Practical 01/`)
 | File | Path |
 |------|------|
-| `Header.jsx` | `src/components/Header.jsx` |
-| `About.jsx` | `src/components/About.jsx` |
-| `Footer.jsx` | `src/components/Footer.jsx` |
-| `AboutPage.jsx` | `src/pages/AboutPage.jsx` |
-| `SkillsPage.jsx` | `src/pages/SkillsPage.jsx` |
+| `Header.jsx` | `src/Practical 01/Header.jsx` |
+| `About.jsx` | `src/Practical 01/About.jsx` |
+| `Footer.jsx` | `src/Practical 01/Footer.jsx` |
+| `Courses.jsx` | `src/Practical 01/Courses.jsx` |
+| `AboutPage.jsx` | `src/Practical 01/AboutPage.jsx` |
+| `SkillsPage.jsx` | `src/Practical 01/SkillsPage.jsx` |
 
 ---
 
@@ -25,14 +26,15 @@ Comprehensive React application implementing **Practical 1**, **Practical 2**, a
 - Controlled form input on Contact page with live character counting.
 - Reactive dark/light mode theme toggle using `useState`.
 
-**Key files:**
+**Key files:** (`src/Practical 02/`)
 | File | Path |
 |------|------|
 | `App.jsx` | `src/App.jsx` — routing setup & theme toggle |
-| `NavBar.jsx` | `src/components/NavBar.jsx` — navigation with `<NavLink>` |
-| `Contact.jsx` | `src/pages/Contact.jsx` — controlled form & character count |
-| `Home.jsx` | `src/pages/Home.jsx` |
-| `NotFound.jsx` | `src/pages/NotFound.jsx` — 404 page |
+| `NavBar.jsx` | `src/Practical 02/NavBar.jsx` — navigation with `<NavLink>` |
+| `Home.jsx` | `src/Practical 02/Home.jsx` |
+| `Contact.jsx` | `src/Practical 02/Contact.jsx` — controlled form & character count |
+| `NotFound.jsx` | `src/Practical 02/NotFound.jsx` — 404 page |
+| `Announcements.jsx` | `src/Practical 02/Announcements.jsx` — useState toggle |
 
 ---
 
@@ -42,12 +44,12 @@ Comprehensive React application implementing **Practical 1**, **Practical 2**, a
 - Conditionally rendered UI with `<Spinner />` and `<ErrorMessage />` featuring a retry button.
 - Real-time search/filter input and star count display.
 
-**Key files:**
+**Key files:** (`src/Practical 03/`)
 | File | Path |
 |------|------|
-| `Projects.jsx` | `src/pages/Projects.jsx` — API fetch, loading/error states, search filter |
-| `Spinner.jsx` | `src/components/Spinner.jsx` — loading indicator |
-| `ErrorMessage.jsx` | `src/components/ErrorMessage.jsx` — error display with retry |
+| `Projects.jsx` | `src/Practical 03/Projects.jsx` — API fetch, loading/error states, search filter |
+| `Spinner.jsx` | `src/Practical 03/Spinner.jsx` — loading indicator |
+| `ErrorMessage.jsx` | `src/Practical 03/ErrorMessage.jsx` — error display with retry |
 
 
 ## Getting Started

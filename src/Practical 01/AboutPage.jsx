@@ -1,6 +1,6 @@
 import React from 'react';
 import { User, Hash, BookOpen, Building2, GraduationCap, MapPin } from 'lucide-react';
-import About from '../components/About';
+import About from './About';
 
 // Practical 1: About page — student bio, academic info, and stats
 export default function AboutPage() {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Spinner from '../components/Spinner';
-import ErrorMessage from '../components/ErrorMessage';
+import Spinner from './Spinner';
+import ErrorMessage from './ErrorMessage';
 
 export default function Projects() {
   const [repos, setRepos] = useState([]);

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import Footer from './components/Footer';
-import Home from './pages/Home';
-import AboutPage from './pages/AboutPage';
-import SkillsPage from './pages/SkillsPage';
-import Projects from './pages/Projects';
-import Contact from './pages/Contact';
-import NotFound from './pages/NotFound';
+import NavBar from './Practical 02/NavBar';
+import Footer from './Practical 01/Footer';
+import Home from './Practical 02/Home';
+import AboutPage from './Practical 01/AboutPage';
+import SkillsPage from './Practical 01/SkillsPage';
+import Projects from './Practical 03/Projects';
+import Contact from './Practical 02/Contact';
+import NotFound from './Practical 02/NotFound';
 import './App.css';
 
 function App() {
