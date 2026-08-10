@@ -1,6 +1,5 @@
 function logger(req, res, next) {
-    console.log(`${req.method} ${res.url} - ${new Date().toLocaleDateString()}`);
-    
+    console.log(`${req.method} ${req.url} - ${new Date().toLocaleDateString()}`);
     next();
 }
 

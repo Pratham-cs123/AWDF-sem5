@@ -27,7 +27,7 @@ router.post('/', (req,res) => {
 })
 
 
-router.post('/:id', (req,res) => {
+router.put('/:id', (req,res) => {
     const taskId = parseInt(req.params.id);
     const task = tasks.find(t => t.id === taskId);
 
@@ -36,7 +36,7 @@ router.post('/:id', (req,res) => {
             message: "Task not found"
         });
     }
-    
+
     task.title = req.body.title || task.title;
     task.completed = req.body.completed;
     res.status(200).json({
@@ -44,5 +44,21 @@ router.post('/:id', (req,res) => {
         task: task
     });
 })
+
+router.delete('/:id', (req,res) => {
+    const taskId = parseInt(req.params.id);
+    const taskIndex = tasks.findIndex(t => t.id === taskId);
+
+    if(taskIndex === -1) {
+        return res.status(404).json({
+            message: "Task not found"
+        });
+    }
+
+    tasks.splice(taskIndex, 1);
+    res.status(200).json({
+        message: "Task deleted successfully"
+    });
+});
 
 module.exports = router;
