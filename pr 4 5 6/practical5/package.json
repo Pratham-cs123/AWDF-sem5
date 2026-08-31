@@ -1,0 +1,10 @@
+{
+  "name": "practical5",
+  "version": "1.0.0",
+  "description": "Practical 5 - Task Manager with MongoDB & Mongoose Persistent Storage",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  }
+}

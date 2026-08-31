@@ -1,0 +1,10 @@
+{
+  "name": "practical4",
+  "version": "1.0.0",
+  "description": "Practical 4 - Task Manager REST API with Express CRUD & Middleware",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  }
+}
