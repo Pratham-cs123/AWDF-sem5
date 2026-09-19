@@ -1,0 +1,10 @@
+{
+  "name": "practical6",
+  "version": "1.0.0",
+  "description": "Practical 6 - Task Manager Full Stack React + Express + MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  }
+}
