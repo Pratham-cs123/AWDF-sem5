@@ -1,0 +1,22 @@
+# 1. Ignore specific system files (Lines starting with '#' are comments)
+.DS_Store
+Thumbs.db
+
+# 2. Ignore local environment variables and credentials 
+.env
+*.pem
+secrets.txt
+
+# 3. Ignore dependency directories (trailing slash means ignore the entire folder)
+node_modules/
+vendor/
+
+# 4. Ignore build outputs and log files
+dist/
+build/
+*.log
+.env
+# 5. Pattern Matching & Negation Examples
+*.json              # Ignores all JSON files everywhere in the repo
+!package.json       # BUT explicitly tracks package.json (negation)
+docs/**/*.pdf       # Ignores all PDFs inside the docs folder and any of its subfolders
