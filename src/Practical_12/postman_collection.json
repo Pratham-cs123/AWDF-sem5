@@ -1,0 +1,54 @@
+{
+  "info": {
+    "_postman_id": "practical-12-collection",
+    "name": "Practical 12 - CI/CD Tested API",
+    "description": "Postman collection for API endpoints verified by automated Jest tests in CI pipeline",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. GET /health (Status 200 Check)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:5004/health"
+      }
+    },
+    {
+      "name": "2. GET /tasks (Array Check)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:5004/tasks"
+      }
+    },
+    {
+      "name": "3. POST /tasks (Valid Payload 201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Automated CI Test Task\"\n}"
+        },
+        "url": "http://localhost:5004/tasks"
+      }
+    },
+    {
+      "name": "4. POST /tasks (Invalid Payload 400 Bad Request)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": "http://localhost:5004/tasks"
+      }
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "info": {
+    "_postman_id": "practical-08-collection",
+    "name": "Practical 08 - HATEOAS API",
+    "description": "Hypermedia As The Engine Of Application State test collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Service Index (Discover Endpoints)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:5002/"
+      }
+    },
+    {
+      "name": "2. Get All Tasks with Links",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:5002/tasks"
+      }
+    },
+    {
+      "name": "3. Filter Pending Tasks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:5002/tasks?completed=false"
+      }
+    },
+    {
+      "name": "4. Get Task #1 Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:5002/tasks/1"
+      }
+    },
+    {
+      "name": "5. Create Task (Check Location header & _links)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Implement EventEmitter for Practical 10\",\n  \"description\": \"Asynchronous background processing with custom events\",\n  \"category\": \"Backend\"\n}"
+        },
+        "url": "http://localhost:5002/tasks"
+      }
+    },
+    {
+      "name": "6. Complete Task (State Transition)",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": "http://localhost:5002/tasks/2/complete"
+      }
+    },
+    {
+      "name": "7. Delete Task (Returns Collection Link)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "http://localhost:5002/tasks/2"
+      }
+    }
+  ]
+}

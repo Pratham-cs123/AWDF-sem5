@@ -1,0 +1,26 @@
+{
+  "name": "practical-12-ci-cd",
+  "version": "1.0.0",
+  "description": "Practical 12: CI/CD Pipeline with GitHub Actions and Automated Jest Tests",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --detectOpenHandles --forceExit",
+    "test:watch": "jest --watch",
+    "simulate-ci": "node simulate-ci.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  }
+}

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWDF Practicals 7–13 Interactive Showcase & Execution Hub</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card: #131b2e;
+      --card-border: #1e293b;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --accent: #8b5cf6;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: var(--primary);
+      color: white;
+      margin-right: 8px;
+      margin-bottom: 12px;
+    }
+
+    .badge-secondary {
+      background: rgba(148, 163, 184, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 2.1rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #60a5fa, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      margin: 0;
+      font-size: 1rem;
+      max-width: 800px;
+    }
+
+    /* Tab Bar */
+    .tabs-bar {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .tab-button {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .tab-button:hover {
+      color: var(--text);
+      border-color: var(--primary);
+    }
+
+    .tab-button.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Content Area */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.25s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .port-tag {
+      font-size: 0.75rem;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .sub-desc {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 20px;
+    }
+
+    /* Form Controls */
+    .input-box {
+      margin-bottom: 14px;
+    }
+
+    .input-box label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .input-box input, .input-box textarea {
+      width: 100%;
+      background: #090d16;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .input-box input:focus, .input-box textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    button.btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-success { background: var(--success); color: white; }
+    .btn-danger { background: var(--danger); color: white; }
+    .btn-secondary { background: #1e293b; color: var(--text); border: 1px solid var(--card-border); }
+    .btn-secondary:hover { background: #334155; }
+
+    /* Interactive Output Display */
+    .terminal-box {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      margin-top: 16px;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+
+    .terminal-head {
+      font-size: 0.75rem;
+      color: #64748b;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .token-preview {
+      background: #0a0f1d;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #38bdf8;
+      word-break: break-all;
+    }
+
+    /* Timeline & Stats */
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .stat-card {
+      background: #0a0f1d;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .stat-card.hit { border-color: rgba(16, 185, 129, 0.4); }
+    .stat-card.miss { border-color: rgba(245, 158, 11, 0.4); }
+    .stat-num { font-size: 2.2rem; font-weight: 800; margin: 4px 0; }
+    .stat-card.hit .stat-num { color: var(--success); }
+    .stat-card.miss .stat-num { color: var(--warning); }
+
+    .qa-box {
+      margin-bottom: 16px;
+      background: #0a0f1d;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+
+    .qa-box strong { color: #60a5fa; display: block; margin-bottom: 4px; font-size: 0.9rem; }
+    .qa-box p { margin: 0; color: var(--text-muted); font-size: 0.85rem; }
+
+    .curl-snippet {
+      background: #030712;
+      border: 1px solid #1f2937;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #fde047;
+      word-break: break-all;
+      margin-top: 14px;
+    }
+
+    /* Docker Tree */
+    .docker-tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 0;
+    }
+    .docker-item {
+      width: 100%;
+      background: #090d16;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      text-align: center;
+    }
+    .docker-item.fe { border-top: 3px solid #3b82f6; }
+    .docker-item.be { border-top: 3px solid #10b981; }
+    .docker-item.db { border-top: 3px solid #a855f7; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="hero">
+    <span class="badge-pill">ITUE301 — AWDF</span>
+    <span class="badge-pill badge-secondary">CHARUSAT Coursework</span>
+    <h1>Practicals 7 to 13 Interactive Showcase</h1>
+    <p>
+      An interactive dashboard demonstrating how each practical operates: JWT Authentication, HATEOAS, In-Memory Caching, Node.js EventEmitter, Docker Compose, GitHub Actions CI/CD, and AI API Integration with Graceful Degradation.
+    </p>
+  </div>
+
+  <!-- Tabs Navigation -->
+  <div class="tabs-bar">
+    <button class="tab-button active" onclick="switchTab('tab-pr7')">Pr 7: Auth & JWT</button>
+    <button class="tab-button" onclick="switchTab('tab-pr8')">Pr 8: HATEOAS</button>
+    <button class="tab-button" onclick="switchTab('tab-pr9')">Pr 9: Caching</button>
+    <button class="tab-button" onclick="switchTab('tab-pr10')">Pr 10: Event-Driven</button>
+    <button class="tab-button" onclick="switchTab('tab-pr11')">Pr 11: Docker Compose</button>
+    <button class="tab-button" onclick="switchTab('tab-pr12')">Pr 12: CI/CD Pipeline</button>
+    <button class="tab-button" onclick="switchTab('tab-pr13')">Pr 13: AI Integration</button>
+  </div>
+
+  <!-- TAB 7 -->
+  <div id="tab-pr7" class="tab-content active">
+    <div class="grid-2">
+      <div class="card">
+        <h3>Interactive JWT Auth Simulator <span class="port-tag">Port 5000</span></h3>
+        <p class="sub-desc">Simulate authenticating with bcrypt-hashed credentials and querying guarded routes with a signed JWT.</p>
+
+        <div class="input-box">
+          <label>Email Address</label>
+          <input type="email" id="pr7-email" value="pratham@charusat.edu.in" />
+        </div>
+        <div class="input-box">
+          <label>Password</label>
+          <input type="password" id="pr7-password" value="Password123!" />
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="pr7Login()">POST /auth/login (Issue JWT)</button>
+          <button class="btn btn-secondary" onclick="pr7TestAuth(false)">GET /tasks (No Token ➔ 401)</button>
+          <button class="btn btn-success" onclick="pr7TestAuth(true)">GET /tasks (With Token ➔ 200)</button>
+        </div>
+
+        <div id="pr7-token-box" class="token-preview" style="display:none;"></div>
+        <div class="terminal-box" id="pr7-terminal">
+          <div class="terminal-head">HTTP RESPONSE INSPECTOR</div>
+          <span style="color:#64748b;">Click a button above to execute an authentication request...</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>How Practical 07 Works</h3>
+        <div class="qa-box">
+          <strong>1. Password Hashing (bcrypt)</strong>
+          <p>Passwords are never stored in plaintext. They are salted with a cost factor of 10 and hashed before being saved in MongoDB.</p>
+        </div>
+        <div class="qa-box">
+          <strong>2. JWT Signature & Claims</strong>
+          <p>Login issues an encoded JSON Web Token containing header, claims (userId, role), and a cryptographic HMAC-SHA256 signature.</p>
+        </div>
+        <div class="qa-box">
+          <strong>3. Route Guard Middleware</strong>
+          <p>Protected endpoints inspect the <code>Authorization: Bearer &lt;token&gt;</code> header. If missing or invalid, an immediate HTTP 401 Unauthorized is returned.</p>
+        </div>
+        <div class="curl-snippet">
+          curl -H "Authorization: Bearer &lt;JWT_TOKEN&gt;" http://localhost:5000/tasks
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 8 -->
+  <div id="tab-pr8" class="tab-content">
+    <div class="grid-2">
+      <div class="card">
+        <h3>HATEOAS Hypermedia Explorer <span class="port-tag">Port 5002</span></h3>
+        <p class="sub-desc">Richardson Maturity Model Level 3. Representations embed <code>_links</code> so clients discover state transitions dynamically.</p>
+
+        <div style="background:#090d16; border:1px solid var(--card-border); border-radius:10px; padding:16px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <strong id="pr8-title">Task #1: Study Richardson Maturity Model</strong>
+            <span id="pr8-status" style="font-size:0.75rem; background:rgba(245,158,11,0.2); color:#f59e0b; padding:2px 8px; border-radius:10px; font-weight:bold;">Pending</span>
+          </div>
+
+          <div style="font-size:0.8rem; color:#94a3b8; margin-bottom:8px;">Discovered Hypermedia Controls (_links):</div>
+          <div id="pr8-links" style="display:flex; flex-direction:column; gap:6px;"></div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="pr8ToggleComplete()">Trigger State Transition (Complete / Reopen)</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Richardson Maturity Levels</h3>
+        <div class="qa-box">
+          <strong>Level 0: The Swamp of POX</strong>
+          <p>Single endpoint and single HTTP POST for all Remote Procedure Calls.</p>
+        </div>
+        <div class="qa-box">
+          <strong>Level 1: Resource URIs</strong>
+          <p>Individual URIs for different entities (e.g. <code>/tasks/1</code>, <code>/tasks/2</code>).</p>
+        </div>
+        <div class="qa-box">
+          <strong>Level 2: HTTP Verbs & Status Codes</strong>
+          <p>Correct usage of GET, POST, PUT, DELETE with 200, 201, 404, 500 codes.</p>
+        </div>
+        <div class="qa-box">
+          <strong>Level 3: HATEOAS</strong>
+          <p>Embedded hypermedia links guide the client to next valid actions without hardcoded client routing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 9 -->
+  <div id="tab-pr9" class="tab-content">
+    <div class="grid-2">
+      <div class="card">
+        <h3>In-Memory Caching Visualizer <span class="port-tag">Port 5001</span></h3>
+        <p class="sub-desc">Compare latency between querying MongoDB disk vs node-cache in-memory V8 heap.</p>
+
+        <div class="stat-row">
+          <div class="stat-card hit">
+            <div style="font-size:0.8rem; color:#94a3b8;">Cache Hits</div>
+            <div class="stat-num" id="pr9-hits">14</div>
+            <div style="font-size:0.75rem; color:#10b981;">~0.8 ms (Memory)</div>
+          </div>
+          <div class="stat-card miss">
+            <div style="font-size:0.8rem; color:#94a3b8;">Cache Misses</div>
+            <div class="stat-num" id="pr9-misses">3</div>
+            <div style="font-size:0.75rem; color:#f59e0b;">~26.4 ms (Database)</div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-success" onclick="pr9Simulate(true)">Simulate Cache HIT (0.6ms)</button>
+          <button class="btn btn-secondary" onclick="pr9Simulate(false)">Simulate Cache MISS (25ms)</button>
+          <button class="btn btn-danger" onclick="pr9Invalidate()">POST /tasks (Invalidate Cache)</button>
+        </div>
+
+        <div class="terminal-box" id="pr9-log">
+          <div class="terminal-head">LATENCY & CACHE AUDIT LOG</div>
+          <div>[HIT] GET /tasks - Served from V8 heap in 0.8ms (X-Cache: HIT)</div>
+          <div>[MISS] GET /tasks - Fetched from MongoDB in 28.2ms (X-Cache: MISS)</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Cache Invalidation & Trade-offs</h3>
+        <div class="qa-box">
+          <strong>Why invalidate on writes?</strong>
+          <p>Without invalidation on POST, PUT, DELETE, read queries return outdated cached data (stale read anomaly).</p>
+        </div>
+        <div class="qa-box">
+          <strong>TTL (Time-To-Live) Trade-off</strong>
+          <p>Short TTL (10s) guarantees freshness but increases DB queries; long TTL (10m) maximizes speed but risks stale snapshots.</p>
+        </div>
+        <div class="curl-snippet">
+          curl http://localhost:5001/debug/cache-stats
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 10 -->
+  <div id="tab-pr10" class="tab-content">
+    <div class="grid-2">
+      <div class="card">
+        <h3>Event-Driven Background Processing <span class="port-tag">Port 5003</span></h3>
+        <p class="sub-desc">Proves that Node.js EventEmitter responds to the HTTP client instantly before the slow background listener finishes.</p>
+
+        <div class="input-box">
+          <label>Task Title</label>
+          <input type="text" id="pr10-title" value="Automate multi-container Docker cluster" />
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" id="pr10-btn" onclick="pr10Trigger()">POST /tasks (Emit 'task-created')</button>
+        </div>
+
+        <div class="terminal-box" id="pr10-terminal" style="min-height:160px;">
+          <div class="terminal-head">EVENT LOOP TIMESTAMP ORDERING EVIDENCE</div>
+          <div style="color:#64748b;">Ready. Click the button to emit an asynchronous background task.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Faculty Lab Evaluation Q&A</h3>
+        <div class="qa-box">
+          <strong>Q: Why does emit() not block the response?</strong>
+          <p>In Node.js, the HTTP response headers and body are flushed to the socket synchronously. Event listeners executing async timers (setTimeout) run on the event loop queue without delaying the response.</p>
+        </div>
+        <div class="qa-box">
+          <strong>Q: When NOT to use EventEmitter?</strong>
+          <p>In high-scale production systems with multiple servers, in-memory events are not shared across processes and will be lost on crash. Use distributed queues like RabbitMQ or Redis BullMQ instead.</p>
+        </div>
+        <div class="curl-snippet">
+          npm run demo   # Executes standalone timestamp verification
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 11 -->
+  <div id="tab-pr11" class="tab-content">
+    <div class="grid-2">
+      <div class="card">
+        <h3>Docker Compose 3-Tier Stack <span class="port-tag">Compose Up</span></h3>
+        <p class="sub-desc">All three services orchestrate together over an internal bridge network named <code>app-network</code>.</p>
+
+        <div class="docker-tree">
+          <div class="docker-item fe">
+            <strong>task_frontend (React / Vite)</strong>
+            <div style="font-size:0.75rem; color:#94a3b8;">Port Forward: 5173:5173 | Multi-stage build</div>
+          </div>
+          <div style="color:#94a3b8; font-size:0.8rem;">↓ app-network (Bridge)</div>
+          <div class="docker-item be">
+            <strong>task_backend (Express / Node 18)</strong>
+            <div style="font-size:0.75rem; color:#94a3b8;">Port Forward: 5000:5000 | Container DNS enabled</div>
+          </div>
+          <div style="color:#94a3b8; font-size:0.8rem;">↓ mongodb://mongodb:27017/taskdb</div>
+          <div class="docker-item db">
+            <strong>task_mongodb (Official Mongo Image)</strong>
+            <div style="font-size:0.75rem; color:#94a3b8;">Port Forward: 27017:27017 | Named Volume: mongodb_data</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Single-Command Stack Commands</h3>
+        <div class="qa-box">
+          <strong>Build & Run Everything:</strong>
+          <p><code>docker-compose up --build</code></p>
+        </div>
+        <div class="qa-box">
+          <strong>Verify Running Containers:</strong>
+          <p><code>docker ps</code></p>
+        </div>
+        <div class="qa-box">
+          <strong>Why use service name 'mongodb'?</strong>
+          <p>Docker's internal DNS automatically resolves the service name <code>mongodb</code> to the container's virtual IP on <code>app-network</code>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 12 -->
+  <div id="tab-pr12" class="tab-content">
+    <div class="grid-2">
+      <div class="card">
+        <h3>GitHub Actions CI Pipeline Simulator <span class="port-tag">Jest Tests</span></h3>
+        <p class="sub-desc">Simulate automated tests running on every commit push to verify PR safety.</p>
+
+        <div class="btn-group">
+          <button class="btn btn-success" onclick="pr12Run(true)">Trigger Push (Tests Pass ➔ Green ✓)</button>
+          <button class="btn btn-danger" onclick="pr12Run(false)">Trigger Push (Deliberate Failure ➔ Red ✗)</button>
+        </div>
+
+        <div class="terminal-box" id="pr12-terminal" style="min-height:180px;">
+          <div class="terminal-head">GITHUB ACTIONS RUNNER LOG (ubuntu-latest)</div>
+          <div style="color:#64748b;">Click a button above to run the CI simulation...</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>CI Pipeline Principles</h3>
+        <div class="qa-box">
+          <strong>Continuous Integration (CI)</strong>
+          <p>Automates testing and build checks on every push so regression bugs are detected immediately before merging into main.</p>
+        </div>
+        <div class="qa-box">
+          <strong>Lab Deliberate Failure Requirement</strong>
+          <p>To demonstrate a Red X, change expected status to 500 in <code>tests/task.test.js</code>. Restore to 200 to turn the status green.</p>
+        </div>
+        <div class="curl-snippet">
+          npm test   # Runs Jest & Supertest locally
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 13 -->
+  <div id="tab-pr13" class="tab-content">
+    <div class="grid-2">
+      <div class="card">
+        <h3>AI API Integration & Graceful Degradation <span class="port-tag">Port 5005</span></h3>
+        <p class="sub-desc">Auto-generate task descriptions securely via backend proxy with smart fallback when offline.</p>
+
+        <div class="input-box">
+          <label>Task Title</label>
+          <input type="text" id="pr13-title" value="Refactor JWT token refresh rotation" />
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-primary" onclick="pr13Generate()">Generate Description with AI</button>
+        </div>
+
+        <div id="pr13-result" style="display:none; margin-top:16px;">
+          <div class="input-box">
+            <label>AI-Generated Suggestion (Editable):</label>
+            <textarea id="pr13-textarea" rows="4"></textarea>
+          </div>
+          <div style="font-size:0.75rem; color:#f59e0b; background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.3); padding:8px 12px; border-radius:6px;">
+            ⚠️ <strong>Responsible AI Disclaimer:</strong> AI suggestions are advisory. Review and edit before saving.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Security & Graceful Degradation</h3>
+        <div class="qa-box">
+          <strong>Why proxy through backend?</strong>
+          <p>Never expose OpenAI/Gemini keys in frontend code or Git history. Backend acts as secure gatekeeper.</p>
+        </div>
+        <div class="qa-box">
+          <strong>Graceful Degradation Guarantee</strong>
+          <p>If third-party AI APIs time out or keys are omitted, the backend catches the error and generates a heuristic suggestion. The application NEVER crashes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // PR 7 Functions
+  let pr7Jwt = null;
+  function pr7Login() {
+    pr7Jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." + btoa(JSON.stringify({ user: "Pratham Patel", role: "Student" })) + ".signature";
+    const box = document.getElementById('pr7-token-box');
+    box.style.display = 'block';
+    box.innerHTML = '<strong>JWT Token Issued:</strong><br/>' + pr7Jwt;
+    document.getElementById('pr7-terminal').innerHTML = `
+      <div class="terminal-head">HTTP 200 OK — POST /auth/login</div>
+      <div style="color:#4ade80;">✓ Credentials verified via bcrypt.compare()</div>
+      <div>Token: ${pr7Jwt.slice(0, 40)}...</div>
+    `;
+  }
+
+  function pr7TestAuth(withToken) {
+    const term = document.getElementById('pr7-terminal');
+    if (withToken && pr7Jwt) {
+      term.innerHTML = `
+        <div class="terminal-head">HTTP 200 OK — GET /tasks</div>
+        <div style="color:#4ade80;">✓ Authorization: Bearer token verified by authMiddleware</div>
+        <div style="color:#e2e8f0;">[ { id: 1, title: "Protected Task #1" }, { id: 2, title: "Protected Task #2" } ]</div>
+      `;
+    } else {
+      term.innerHTML = `
+        <div class="terminal-head">HTTP 401 Unauthorized — GET /tasks</div>
+        <div style="color:#f87171;">✗ Access Denied: No Bearer token provided in Authorization header</div>
+      `;
+    }
+  }
+
+  // PR 8 Functions
+  let pr8Done = false;
+  function renderPr8Links() {
+    const linksDiv = document.getElementById('pr8-links');
+    if (!pr8Done) {
+      document.getElementById('pr8-status').textContent = 'Pending';
+      document.getElementById('pr8-status').style.color = '#f59e0b';
+      linksDiv.innerHTML = `
+        <div><code style="color:#60a5fa;">self</code>: GET /tasks/1</div>
+        <div><code style="color:#10b981;">complete</code>: PATCH /tasks/1/complete (Available Transition)</div>
+        <div><code style="color:#ef4444;">delete</code>: DELETE /tasks/1</div>
+        <div><code style="color:#94a3b8;">collection</code>: GET /tasks</div>
+      `;
+    } else {
+      document.getElementById('pr8-status').textContent = 'Completed';
+      document.getElementById('pr8-status').style.color = '#10b981';
+      linksDiv.innerHTML = `
+        <div><code style="color:#60a5fa;">self</code>: GET /tasks/1</div>
+        <div><code style="color:#f59e0b;">reopen</code>: PATCH /tasks/1/reopen (Available Transition)</div>
+        <div><code style="color:#ef4444;">delete</code>: DELETE /tasks/1</div>
+        <div><code style="color:#94a3b8;">collection</code>: GET /tasks</div>
+      `;
+    }
+  }
+  function pr8ToggleComplete() {
+    pr8Done = !pr8Done;
+    renderPr8Links();
+  }
+  renderPr8Links();
+
+  // PR 9 Functions
+  let pr9H = 14, pr9M = 3;
+  function pr9Simulate(isHit) {
+    const log = document.getElementById('pr9-log');
+    if (isHit) {
+      pr9H++;
+      document.getElementById('pr9-hits').textContent = pr9H;
+      log.innerHTML = `<div>[HIT] GET /tasks - Served from V8 heap in 0.7ms (X-Cache: HIT)</div>` + log.innerHTML;
+    } else {
+      pr9M++;
+      document.getElementById('pr9-misses').textContent = pr9M;
+      log.innerHTML = `<div>[MISS] GET /tasks - Queried MongoDB in 24.8ms (X-Cache: MISS)</div>` + log.innerHTML;
+    }
+  }
+  function pr9Invalidate() {
+    const log = document.getElementById('pr9-log');
+    log.innerHTML = `<div style="color:#f87171;">[INVALIDATION] POST /tasks - cache.del('all_tasks') called! Stale cache cleared.</div>` + log.innerHTML;
+  }
+
+  // PR 10 Functions
+  function pr10Trigger() {
+    const btn = document.getElementById('pr10-btn');
+    const term = document.getElementById('pr10-terminal');
+    const title = document.getElementById('pr10-title').value;
+    btn.disabled = true;
+    btn.textContent = 'Processing in background...';
+
+    const apiTime = new Date().toISOString();
+    term.innerHTML = `
+      <div class="terminal-head">STEP 1: API RESPONSE</div>
+      <div style="color:#4ade80;">🚀 [API GATEWAY] Response HTTP 201 Sent at: ${apiTime} (~3ms)</div>
+      <div style="color:#38bdf8;">📡 Emitted 'task-created' event to background queue. Client is NOT blocked!</div>
+      <div style="color:#94a3b8; margin-top:8px;">Waiting for simulated background worker (1.5s delay)...</div>
+    `;
+
+    setTimeout(() => {
+      const workerTime = new Date().toISOString();
+      term.innerHTML += `
+        <div style="margin-top:10px; border-top:1px dashed #334155; padding-top:8px;">
+          <div class="terminal-head">STEP 2: NOTIFICATION LISTENER COMPLETION</div>
+          <div style="color:#34d399;">🔔 [Background Worker] Notification for "${title}" delivered at: ${workerTime}</div>
+          <div style="color:#fbbf24;">Latency Gap: +1504ms. Proof: API responded before worker finished!</div>
+        </div>
+      `;
+      btn.disabled = false;
+      btn.textContent = "POST /tasks (Emit 'task-created')";
+    }, 1500);
+  }
+
+  // PR 12 Functions
+  function pr12Run(pass) {
+    const term = document.getElementById('pr12-terminal');
+    term.innerHTML = `<div>[Job: build-and-test] Initializing ubuntu-latest virtual runner...</div>`;
+    setTimeout(() => {
+      term.innerHTML += `<div>  ✓ actions/checkout@v4 - Checked out repository at HEAD</div>`;
+    }, 400);
+    setTimeout(() => {
+      term.innerHTML += `<div>  ✓ actions/setup-node@v4 - Node.js 18.x installed</div>`;
+    }, 800);
+    setTimeout(() => {
+      term.innerHTML += `<div>  ✓ npm install - 14 packages verified in 1.2s</div>`;
+    }, 1200);
+    setTimeout(() => {
+      if (pass) {
+        term.innerHTML += `
+          <div>  ✓ npm test - PASS tests/task.test.js (5 tests passed, 0 failed)</div>
+          <div style="color:#4ade80; font-weight:bold; margin-top:6px;">🎉 PIPELINE STATUS: PASSED (Green Checkmark ✓)</div>
+        `;
+      } else {
+        term.innerHTML += `
+          <div style="color:#f87171;">  ✗ npm test - FAIL tests/task.test.js: Expected 500, received 200</div>
+          <div style="color:#ef4444; font-weight:bold; margin-top:6px;">❌ PIPELINE STATUS: FAILED (Red X ✗) - PR Blocked</div>
+        `;
+      }
+    }, 1800);
+  }
+
+  // PR 13 Functions
+  function pr13Generate() {
+    const title = document.getElementById('pr13-title').value;
+    const resBox = document.getElementById('pr13-result');
+    const txtArea = document.getElementById('pr13-textarea');
+    txtArea.value = `Implement the core architecture for "${title}". Configure security boundaries, validate request input payloads, handle network retry scenarios, and verify logging.`;
+    resBox.style.display = 'block';
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+{
+  "info": {
+    "_postman_id": "practical-13-collection",
+    "name": "Practical 13 - AI Integration API",
+    "description": "Postman collection for testing AI generation and graceful degradation endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. AI Service Status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:5005/"
+      }
+    },
+    {
+      "name": "2. Generate Task Description (AI / Fallback)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Implement JWT authentication and refresh token rotation\"\n}"
+        },
+        "url": "http://localhost:5005/api/ai/generate-description"
+      }
+    },
+    {
+      "name": "3. Suggest Priority & Deadline",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Urgent production server crash during peak load\"\n}"
+        },
+        "url": "http://localhost:5005/api/ai/suggest-priority"
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "info": {
+    "_postman_id": "practical-11-collection",
+    "name": "Practical 11 - Docker Containerized API",
+    "description": "Postman collection for testing containerized backend running on port 5000",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Container Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:5000/"
+      }
+    },
+    {
+      "name": "2. Get All Tasks from Containerized Mongo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:5000/tasks"
+      }
+    },
+    {
+      "name": "3. Create Task Inside Container",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Verify Named Volume Persistence\",\n  \"description\": \"Data stored in mongodb_data volume persists after docker-compose down\"\n}"
+        },
+        "url": "http://localhost:5000/tasks"
+      }
+    }
+  ]
+}

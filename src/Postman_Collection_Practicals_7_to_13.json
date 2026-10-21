@@ -1,0 +1,284 @@
+{
+  "info": {
+    "_postman_id": "charusat-awdf-practicals-7-to-13",
+    "name": "AWDF (ITUE301) — Practicals 7 to 13 Master Collection",
+    "description": "Complete Postman testing suite for Advanced Web Development Frameworks (CHARUSAT) Practicals 7 through 13",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "jwt_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Practical 07 — JWT Authentication",
+      "item": [
+        {
+          "name": "1. Register New User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Pratham Patel\",\n  \"email\": \"pratham@charusat.edu.in\",\n  \"password\": \"SecurePass123!\"\n}"
+            },
+            "url": "http://localhost:5000/auth/register"
+          }
+        },
+        {
+          "name": "2. Login User (Get JWT)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"pratham@charusat.edu.in\",\n  \"password\": \"SecurePass123!\"\n}"
+            },
+            "url": "http://localhost:5000/auth/login"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.token) {",
+                  "    pm.collectionVariables.set(\"jwt_token\", res.token);",
+                  "    pm.environment.set(\"jwt_token\", res.token);",
+                  "    console.log(\"jwt_token automatically saved:\", res.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "3. Get Protected Tasks (Unauthorized 401)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:5000/tasks"
+          }
+        },
+        {
+          "name": "4. Get Protected Tasks (Authorized Bearer Token)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{jwt_token}}" }],
+            "url": "http://localhost:5000/tasks"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Practical 08 — HATEOAS REST API",
+      "item": [
+        {
+          "name": "1. Service Index (Discover Links)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:5002/"
+          }
+        },
+        {
+          "name": "2. Get Tasks with Hypermedia Controls",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:5002/tasks"
+          }
+        },
+        {
+          "name": "3. Create Task with Location Header",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Implement Hypermedia Client\",\n  \"description\": \"Traverse _links dynamically without hardcoded URLs\",\n  \"category\": \"Frontend\"\n}"
+            },
+            "url": "http://localhost:5002/tasks"
+          }
+        },
+        {
+          "name": "4. Mark Task Completed",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": "http://localhost:5002/tasks/1/complete"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Practical 09 — In-Memory Caching",
+      "item": [
+        {
+          "name": "1. First Read (Cache MISS)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:5001/tasks"
+          }
+        },
+        {
+          "name": "2. Second Read (Cache HIT)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:5001/tasks"
+          }
+        },
+        {
+          "name": "3. Inspect Cache Hit/Miss Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:5001/debug/cache-stats"
+          }
+        },
+        {
+          "name": "4. Create Task (Triggers Cache Invalidation)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"New Task Clearing Cache\",\n  \"description\": \"Testing automatic cache key deletion\"\n}"
+            },
+            "url": "http://localhost:5001/tasks"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Practical 10 — Event-Driven Async",
+      "item": [
+        {
+          "name": "1. Create Task (Immediate 201, Async Notification)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Configure Asynchronous Notification Listener\",\n  \"assignedUser\": \"Pratham_D25CS123\"\n}"
+            },
+            "url": "http://localhost:5003/tasks"
+          }
+        },
+        {
+          "name": "2. View Background Event Log & Timestamps",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:5003/debug/event-logs"
+          }
+        },
+        {
+          "name": "3. Simulate Error (Catch Without Crash)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:5003/tasks/simulate-error"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Practical 11 — Docker Containerized Stack",
+      "item": [
+        {
+          "name": "1. Backend Container Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:5000/"
+          }
+        },
+        {
+          "name": "2. Tasks from Containerized MongoDB",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:5000/tasks"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Practical 12 — CI/CD Tested API",
+      "item": [
+        {
+          "name": "1. Health Endpoint (Verified in CI)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:5004/health"
+          }
+        },
+        {
+          "name": "2. Get Tasks (Tested by Jest)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:5004/tasks"
+          }
+        },
+        {
+          "name": "3. Create Valid Task (201 Test)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"CI Automated Unit Test Task\"\n}"
+            },
+            "url": "http://localhost:5004/tasks"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Practical 13 — AI API & Graceful Degradation",
+      "item": [
+        {
+          "name": "1. AI Service Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "http://localhost:5005/"
+          }
+        },
+        {
+          "name": "2. Generate AI Description",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Implement OAuth2 Google Social Sign-In\"\n}"
+            },
+            "url": "http://localhost:5005/api/ai/generate-description"
+          }
+        },
+        {
+          "name": "3. Suggest Priority & Deadline",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Urgent production security vulnerability patch\"\n}"
+            },
+            "url": "http://localhost:5005/api/ai/suggest-priority"
+          }
+        }
+      ]
+    }
+  ]
+}

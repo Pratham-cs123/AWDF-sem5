@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import NavBar from './Practical 02/NavBar';
-import Footer from './Practical 01/Footer';
-import Home from './Practical 02/Home';
-import AboutPage from './Practical 01/AboutPage';
-import SkillsPage from './Practical 01/SkillsPage';
-import Projects from './Practical 03/Projects';
-import Contact from './Practical 02/Contact';
-import NotFound from './Practical 02/NotFound';
+import NavBar from './Practical_2/NavBar';
+import Footer from './Practical_1/Footer';
+import Home from './Practical_2/Home';
+import AboutPage from './Practical_1/AboutPage';
+import SkillsPage from './Practical_1/SkillsPage';
+import Projects from './Practical_3/Projects';
+import Contact from './Practical_2/Contact';
+import NotFound from './Practical_2/NotFound';
+import PracticalsHub from './components/PracticalsHub';
 import './App.css';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/skills" element={<SkillsPage />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/practicals" element={<PracticalsHub />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

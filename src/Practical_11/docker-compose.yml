@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # 1. MongoDB Service
+  mongodb:
+    image: mongo:latest
+    container_name: task_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: taskdb
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+  # 2. Node/Express Backend Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: task_backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGO_URI=mongodb://mongodb:27017/taskdb
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  # 3. React Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: task_frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local

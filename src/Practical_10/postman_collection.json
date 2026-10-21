@@ -1,0 +1,70 @@
+{
+  "info": {
+    "_postman_id": "practical-10-collection",
+    "name": "Practical 10 - EventEmitter Async Processing API",
+    "description": "Postman collection for testing Practical 10 Event-Driven background processing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Health & Service Metadata",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:5003/"
+      }
+    },
+    {
+      "name": "2. Get Current Tasks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:5003/tasks"
+      }
+    },
+    {
+      "name": "3. Create Task (Triggers Non-blocking Notification)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Implement CI/CD pipeline in GitHub Actions\",\n  \"description\": \"Setup test automation for Practical 12\",\n  \"assignedUser\": \"Student_D25CS123\"\n}"
+        },
+        "url": "http://localhost:5003/tasks"
+      }
+    },
+    {
+      "name": "4. View Event Timestamps & Latency Audit",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:5003/debug/event-logs"
+      }
+    },
+    {
+      "name": "5. Delete Task (Triggers task-deleted Audit Event)",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user\": \"Lab_Instructor\"\n}"
+        },
+        "url": "http://localhost:5003/tasks/1"
+      }
+    },
+    {
+      "name": "6. Simulate Error (Tests Error Listener Safety)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "http://localhost:5003/tasks/simulate-error"
+      }
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "practical-09",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js",
+    "seed": "node seed.js",
+    "benchmark": "node benchmark.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "caching",
+    "node-cache",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "Practical 09: In-Memory Caching with Node-Cache",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.0",
+    "node-cache": "^5.1.2"
+  }
+}
